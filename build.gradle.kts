@@ -3,15 +3,11 @@
 plugins {
     kotlin("jvm") version "1.9.22"
     id("com.gradle.plugin-publish") version "+"
-    id("io.github.kotlin-artisans.changesets") version "0.0.4"
     `java-gradle-plugin`
     `kotlin-dsl`
     `maven-publish`
-    signing
     idea
 }
-
-defaultTasks("build")
 
 group = "org.runebox.gradle"
 version = "1.0.0"
@@ -42,7 +38,7 @@ tasks.wrapper {
 idea {
     project {
         jdkName = "11"
-        languageLevel.level = "1.8"
+        languageLevel.level = "11"
     }
 }
 
@@ -61,16 +57,29 @@ gradlePlugin {
     }
 }
 
+
 val sourcesJar by tasks.registering(Jar::class) {
     group = "build"
     archiveClassifier.set("sources")
     from(sourceSets.main.get().allSource)
 }
 
+val gradlePublishUsername: String? by project
+val gradlePublishSecret: String? by project
+
+println("Username Some $gradlePublishUsername, $gradlePublishSecret")
+
 publishing {
     repositories {
         mavenLocal()
-        maven(url = "https://jitpack.io")
+        maven(url = "https://maven.runebox.org/repository/maven/") {
+            if(hasProperty("maven.username") && hasProperty("maven.password")) {
+                credentials {
+                    username = property("maven.username") as String
+                    password = property("maven.password") as String
+                }
+            }
+        }
     }
 
     publications {
@@ -78,7 +87,7 @@ publishing {
             from(components["java"])
             groupId = "org.runebox.gradle"
             artifactId = "rust-plugin"
-            version = rootProject.project.version.toString()
+            version = version.toString()
         }
     }
 }
