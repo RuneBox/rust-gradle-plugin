@@ -7,6 +7,7 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
     `maven-publish`
+    signing
     idea
 }
 
@@ -63,12 +64,13 @@ gradlePlugin {
 val sourcesJar by tasks.registering(Jar::class) {
     group = "build"
     archiveClassifier.set("sources")
-    from(sourceSets["main"].allJava)
+    from(sourceSets.main.get().allSource)
 }
 
 publishing {
     repositories {
         mavenLocal()
+        maven(url = "https://jitpack.io")
     }
 
     publications {
