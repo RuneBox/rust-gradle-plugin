@@ -65,15 +65,19 @@ val sourcesJar by tasks.registering(Jar::class) {
 }
 
 val gradlePublishUsername: String? by project
-val gradlePUblishSecret: String? by project
+val gradlePublishSecret: String? by project
+
+println("Username Some $gradlePublishUsername, $gradlePublishSecret")
 
 publishing {
     repositories {
         mavenLocal()
-        maven(url = "https://maven.runebox.org/") {
-            credentials {
-                username = gradlePublishUsername
-                password = gradlePUblishSecret
+        maven(url = "https://maven.runebox.org/repository/maven/") {
+            if(hasProperty("maven.username") && hasProperty("maven.password")) {
+                credentials {
+                    username = property("maven.username") as String
+                    password = property("maven.password") as String
+                }
             }
         }
     }

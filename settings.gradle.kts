@@ -2,7 +2,6 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenLocal()
-        maven(url = "https://jitpack.io")
     }
 }
 
