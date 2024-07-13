@@ -47,7 +47,7 @@ idea {
 
 gradlePlugin {
     plugins {
-        create("rustGradlePlugin") {
+        create("rustGradle") {
             id = "org.runebox.gradle.rust"
             version = version.toString()
             implementationClass = "org.runebox.gradle.plugin.rust.RustGradlePlugin"
@@ -72,18 +72,15 @@ publishing {
     }
 
     publications {
-        create<MavenPublication>("rustGradlePlugin") {
+        create<MavenPublication>("rustMaven") {
             from(components["java"])
             groupId = "org.runebox.gradle"
             artifactId = "rust-plugin"
             version = rootProject.project.version.toString()
-            afterEvaluate {
-                artifact(sourcesJar.get())
-            }
         }
     }
 }
 
 artifacts {
-    add("implementation", sourcesJar.get())
+    add("implementation", sourcesJar)
 }
