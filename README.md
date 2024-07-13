@@ -18,30 +18,14 @@
     </header>
     <div id="content">
         <h2>About</h2>
-        <p>This project comprises a powerful and flexible Gradle plugin tailored for Rust development. The plugin integrates key Rust tools - RustUp, Rustc, and Cargo - into the Gradle framework, enabling streamlined and coordinated build processes. 
-
-Without leaving the comfort of Gradle, developers can manage Rust installations and generate build tasks. It essentially transforms Gradle into a centralized platform for completing mission-critical Rust tasks. 
-
-This intuitive unification optimizes resource allocation and improves project workflow significantly - a true win for any Rust developer operating in the Gradle environment.</p>
-        <h2>Features</h2>
-        <ul>
-            <li>Provides Gradle tasks for RustUp, Rustc, and Cargo</li>
-            <li>Simplifies the build process for Rust projects</li>
-            <li>Compatible with most Gradle versions</li>
-        </ul>
-        <h2>Installation</h2>
-        <p>To install the plugin, add the following to your <span class=".highlight">settings.gradle</span> / <span class=.highlight>settings.gradle.kts</span> file:</p>
-</p>
+        <p>This project comprises a powerful and flexible Gradle plugin tailored for Rust development. The plugin integrates key Rust tools - RustUp, Rustc, and Cargo - into the Gradle framework, enabling streamlined and coordinated build processes.</p>
 <h5>Add JitPack to your build.gradle.kts file.</h5>
 
-    dependencyResolutionManagement {
+    pluginManagement {
         repositories {
-            maven(url = "https://maven.runebox.io")
-
-            // Add Your Other previous repo defs
-            mavenCentral()
             mavenLocal()
             gradlePluginPortal()
+            maven(url = "https://jitpack.io/")
         }
     }
     
